@@ -1,21 +1,18 @@
+// higher-order function
+fun updateDirty(dirty: Int, operation: (Int) -> Int): Int {
+    return operation(dirty)
+}
+
 fun main(args: Array<String>) {
-    val decorations = listOf ("rock", "pagoda", "plastic plant", "alligator", "flowerpot")
+    // lambda
+    val decreaseDirty: (Int) -> Int = { dirty -> dirty - 1}
 
-    val lazyMap = decorations.asSequence().map {
-        println("access: $it")
-        it
-    }
+    // named function
+    fun increaseDirty( start: Int ) = start + 1
 
-    println("lazy: $lazyMap")
-    println("-----")
-    println("first: ${lazyMap.first()}")
-    println("-----")
-    println("all: ${lazyMap.toList()}")
+    // calling higher-order function with lambda
+    println(updateDirty(15, decreaseDirty))
 
-    val lazyMap2 = decorations.asSequence().filter {it[0] == 'p'}.map {
-        println("access: $it")
-        it
-    }
-    println("-----")
-    println("filtered: ${lazyMap2.toList()}")
+    // calling higher-order function with named function (need to obtain function reference!)
+    println(updateDirty(15, ::increaseDirty))
 }
