@@ -1,23 +1,31 @@
 package example.myapp
 
-abstract class AquariumFish: FishAction {
-    abstract val color: String
-}
-
-class Shark: AquariumFish() {
+class Shark: FishAction, FishColor {
     override val color = "gray"
     override fun eat() {
         println("hunt and eat fish")
     }
 }
 
-class Plecostomus: AquariumFish() {
-    override val color = "gold"
-    override fun eat() {
-        println("eat algae")
-    }
-}
+class Plecostomus(fishColor: FishColor = GoldColor):
+    FishAction by PrintingFishAction("eat algae"),
+    FishColor by fishColor
 
 interface FishAction {
     fun eat()
+}
+
+interface FishColor {
+    val color: String
+}
+
+object GoldColor : FishColor {
+    override val color = "gold"
+}
+
+// this is a class instead of an object, as we need a constructor
+class PrintingFishAction(val food: String) : FishAction {
+    override fun eat() {
+        println(food)
+    }
 }
