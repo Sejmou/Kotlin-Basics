@@ -1,24 +1,15 @@
 package example.myapp.decor
 
 fun makeDecorations() {
-    val decoration1 = Decoration("granite")
+    val decoration1 = Decoration("granite", "holy diver")
     println(decoration1)
 
-    val decoration2 = Decoration("slate")
-    println(decoration2)
-
-    val decoration3 = Decoration("slate")
-    println(decoration3)
-
-    println(decoration1.equals(decoration2))
-    println(decoration3.equals(decoration2))
-    println(decoration3 == decoration2)
-    println(decoration3 === decoration2)
+    val (rocks, diver) = decoration1
+    println("rocks: $rocks")
+    println("diver: $diver")
 }
 
-data class Decoration(val rocks: String) {
-
-}
+data class Decoration(val rocks: String, val diver: String)
 
 fun main() {
     makeDecorations()
