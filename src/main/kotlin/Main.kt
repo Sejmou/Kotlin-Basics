@@ -1,33 +1,15 @@
-import java.util.*
-
-fun randomDay() : String {
-    val week = arrayOf ("Monday", "Tuesday", "Wednesday", "Thursday",
-        "Friday", "Saturday", "Sunday")
-    return week[Random().nextInt(week.size)]
-}
-
-/**
- * Return food for fish for a given day of the week.
- *
- * @param day The day of the week
- */
-fun fishFood (day : String) : String {
-    return when (day) {
-        "Monday" -> "flakes"
-        "Wednesday" -> "redworms"
-        "Thursday" -> "granules"
-        "Friday" -> "mosquitoes"
-        "Sunday" -> "plankton"
-        else -> "nothing"
-    }
-}
-
-fun feedTheFish() {
-    val day = randomDay()
-    val food = fishFood(day)
-    println ("Today is $day and the fish eat $food")
-}
-
 fun main(args: Array<String>) {
-    feedTheFish()
+    val decorations = listOf ("rock", "pagoda", "plastic plant", "alligator", "flowerpot")
+
+    // eager, creates a new list
+    val eager = decorations.filter { it [0] == 'p' }
+    println("eager filter: $eager")
+
+    // lazy, will wait until asked to evaluate
+    val lazy = decorations.asSequence().filter { it[0] == 'p' }
+    println("lazy filter (filtering Sequence): $lazy")
+
+    // force evaluation of the lazy list
+    val newList = lazy.toList()
+    println("evaluated lazy-filtered list: $newList")
 }
